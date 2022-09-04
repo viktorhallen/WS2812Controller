@@ -8,11 +8,14 @@
 *******************************/
 
 /* Common Libraries & Setup */
+var https = require("https");
+var http = require("http");
 var express = require("express");
 var app = express();
 var bodyParser = require("body-parser");
 var path = require("path");
 var os = require('os');
+var fs = require("fs");
 
 app.use(express.static(__dirname + "/public"));
 app.use(bodyParser.json());
@@ -31,6 +34,7 @@ var rainbow = require("./animations/rainbow.js");
 var control = require("./animations/control.js");
 var dance = require("./animations/dance.js");
 var twinkle = require("./animations/twinkle.js");
+var manual = require("./animations/manual.js");
 
 // Find the first local, ipv4 address
 // This is a 'best guess' that the web server can be accessed
@@ -62,6 +66,7 @@ for (var k in interfaces) {
  */
 app.post("/AnimationRequest", function (request, response) {
 	response.header("Access-Control-Allow-Origin", "*");
+	response.header("Access-Control-Allow-Headers", "Content-Type");
 
 	var lib = request.body.hasOwnProperty("lib") ? request.body.lib : "";
 	var instance = GetLibraryInstance(lib);
@@ -86,6 +91,13 @@ app.post("/AnimationRequest", function (request, response) {
 	} else {
 		response.send("Function not found");
 	}
+});
+
+app.options("/AnimationRequest", function (req, res) {
+	res.header("Access-Control-Allow-Origin", "*");
+	res.header("Access-Control-Allow-Headers", "Content-Type");
+	res.header("Allow", "POST");
+	res.send();
 });
 
 /**
@@ -142,6 +154,9 @@ function GetLibraryInstance(key) {
 		case "twinkle":
 			lib = twinkle;
 			break;
+		case "manual":
+			lib = manual;
+			break;
 	}
 
 	return lib;
@@ -151,7 +166,7 @@ function GetLibraryInstance(key) {
 	Startup
 *****************/
 
-var server = app.listen(HTTP_PORT, function () {
+var server = http.createServer(app).listen(HTTP_PORT, function () {
 	console.log("***************************");
 	console.log(" WS2812 CONTROLLER STARTUP ");
 	console.log(" Web Server listening at the location below, or by host name and port. ");
@@ -164,3 +179,13 @@ var server = app.listen(HTTP_PORT, function () {
         	rainbowInstance.GoRainbow("", strip);
 	}
 });
+
+var key = fs.readFileSync(__dirname + '/certificate.key');
+var cert = fs.readFileSync(__dirname + '/certificate.crt');
+var options = {
+	  key: key,
+	  cert: cert
+};
+
+var serverHttps = https.createServer(options, app).listen(HTTP_PORT + 1, () => 
+	console.log("HTTPS on port " + (HTTP_PORT+1)));

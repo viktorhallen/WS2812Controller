@@ -1,3 +1,8 @@
+certificate.key
+certificate.crt
+
+
+
 # Logs
 logs
 *.log
