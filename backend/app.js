@@ -17,7 +17,7 @@ var path = require("path");
 var os = require('os');
 var fs = require("fs");
 
-app.use(express.static(__dirname + "/public"));
+app.use(express.static(__dirname + "/../public"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -28,13 +28,13 @@ var HTTP_PORT = 8080;
 var strip = require("./strip.js");
 
 /*  Animation Libraries */
-var xmas = require("./animations/xmas.js");
-var fade = require("./animations/fade.js");
-var rainbow = require("./animations/rainbow.js");
-var control = require("./animations/control.js");
-var dance = require("./animations/dance.js");
-var twinkle = require("./animations/twinkle.js");
-var manual = require("./animations/manual.js");
+var xmas = require("../animations/xmas.js");
+var fade = require("../animations/fade.js");
+var rainbow = require("../animations/rainbow.js");
+var control = require("../animations/control.js");
+var dance = require("../animations/dance.js");
+var twinkle = require("../animations/twinkle.js");
+var manual = require("../animations/manual.js");
 
 // Find the first local, ipv4 address
 // This is a 'best guess' that the web server can be accessed
@@ -105,7 +105,7 @@ app.options("/AnimationRequest", function (req, res) {
  */
 app.get("/", function (req, res) {
 	res.header("Access-Control-Allow-Origin", "*");
-	res.sendFile(path.join(__dirname + "/app.html"));
+	res.sendFile(path.join(__dirname + "/../frontend/app.html"));
 });
 
 /*****************
