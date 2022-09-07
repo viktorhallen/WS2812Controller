@@ -189,3 +189,16 @@ var options = {
 
 var serverHttps = https.createServer(options, app).listen(HTTP_PORT + 1, () => 
 	console.log("HTTPS on port " + (HTTP_PORT+1)));
+
+	var cleanup = () => {
+	server.close(() => {
+		console.log("Closing HTTP server");
+	});
+	serverHttps.close(() => {
+		console.log("Closing HTTPS server");
+	});
+	strip.Stop();
+	process.exit();
+}
+process.on("SIGTERM", cleanup);
+process.on("SIGINT", cleanup);
