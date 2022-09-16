@@ -20,7 +20,9 @@ function strip() {
 	 * Clear all LED's back to 0x00000 and render
 	 */
 	this.Stop = function () {
-		this.SetStripColor(0x000000);
+		this.Mode = "STOP";
+		this.SetStripColor(0);
+		this.Render();
 	};
 
 	/**

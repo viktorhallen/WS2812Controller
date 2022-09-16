@@ -28,13 +28,13 @@ var HTTP_PORT = 8080;
 var strip = require("./strip.js");
 
 /*  Animation Libraries */
-var xmas = require("../animations/xmas.js");
-var fade = require("../animations/fade.js");
-var rainbow = require("../animations/rainbow.js");
-var control = require("../animations/control.js");
-var dance = require("../animations/dance.js");
-var twinkle = require("../animations/twinkle.js");
-var manual = require("../animations/manual.js");
+var xmas = require("../lib/animations/xmas.js");
+var fade = require("../lib/animations/fade.js");
+var rainbow = require("../lib/animations/rainbow.js");
+var control = require("../lib/animations/control.js");
+var dance = require("../lib/animations/dance.js");
+var twinkle = require("../lib/animations/twinkle.js");
+var manual = require("../lib/animations/manual.js");
 
 // Find the first local, ipv4 address
 // This is a 'best guess' that the web server can be accessed
@@ -105,7 +105,7 @@ app.options("/AnimationRequest", function (req, res) {
  */
 app.get("/", function (req, res) {
 	res.header("Access-Control-Allow-Origin", "*");
-	res.sendFile(path.join(__dirname + "/../frontend/app.html"));
+	res.sendFile(path.join(__dirname + "/../public/app.html"));
 });
 
 /*****************
