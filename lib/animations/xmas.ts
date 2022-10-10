@@ -1,7 +1,7 @@
 /*******************************
 	christmas animations
 *******************************/
-var common = require("./common.js");
+import common from "./common";
 var name = "xmas.js";
 var Xmas1Speed = 750;
 
@@ -41,7 +41,7 @@ function xmas() {
 			Christmas mode 2. Iterate R / G / B / W through the strip from top to bottom and bottom to top
 *******************************/
 	var DanceWidth = 15;
-	var DanceArray = [];
+	var DanceArray: number[] = [];
 	var XmasIterateSpeed = 75;
 	var XmasIterateOffset = 0;
 
@@ -99,4 +99,4 @@ function xmas() {
 	};
 }
 
-module.exports = new xmas();
+export default new xmas();

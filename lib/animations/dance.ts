@@ -1,4 +1,4 @@
-var common = require("./common.js");
+import common from "./common";
 
 function dance() {
 	var name = "dance.js";
@@ -74,4 +74,4 @@ function dance() {
 // theaterChase( 0xff3b00 , DanceSpeed); // Red
 // theaterChase( 0x0043ff , DanceSpeed); // Blue
 
-module.exports = new dance();
+export default new dance();

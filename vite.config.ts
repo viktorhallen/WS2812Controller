@@ -7,10 +7,17 @@ import { viteCommonjs } from '@originjs/vite-plugin-commonjs'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [vue(), viteCommonjs()],
+  root: "frontend/",
+  plugins: [vue()],
   resolve: {
     alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url))
+      '@frontend': fileURLToPath(new URL('./frontend', import.meta.url)),
+      '@lib': fileURLToPath(new URL('./lib', import.meta.url)),
     }
+  },
+  build: {
+    outDir: 'public/dist',
+    emptyOutDir: true,
+    commonjsOptions: { },
   }
 })

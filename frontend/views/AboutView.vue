@@ -4,12 +4,13 @@
   import Strip from '../lib/strip';
   //import rainbow from '../../../animations/rainbow';
   
-  import control from '../../../lib/animations/control';
-  import dance from '../../../lib/animations/dance';
-  import fade from '../../../lib/animations/fade';
-  import rainbow from '../../../lib/animations/rainbow';
-  import twinkle from '../../../lib/animations/twinkle';
-  import xmas from '../../../lib/animations/xmas';
+  import control from '@lib/animations/control';
+  import dance from '@lib/animations/dance';
+  import fade from '@lib/animations/fade';
+  import rainbow from '@lib/animations/rainbow';
+  import twinkle from '@lib/animations/twinkle';
+  import xmas from '@lib/animations/xmas';
+  import basic2d from '@lib/animations/basic2d';
   const strip = reactive(new Strip())
   const modes = [
     {name: "Stop", fn: control.Stop.bind(control)},
@@ -18,6 +19,7 @@
     {name: "Rainbow", fn: rainbow.GoRainbow.bind(rainbow)},
     {name: "Twinkle", fn: twinkle.GoTwinkle.bind(twinkle)},
     {name: "XMAS", fn: xmas.GoXmas1.bind(xmas)},
+    {name: "Basic2D", fn: basic2d.GoRainbow.bind(basic2d)}
   ]
   
   </script>
@@ -32,6 +34,12 @@
     <input type="number" v-model="strip.NUM_LEDS" />
     mode: {{strip.Mode}}
     <div class="diodes"><Diode v-for="diode in strip.Lights" :color="diode ?? 0" /></div>
+    positions:
+    <div v-for="diode in strip.Positions">
+    x: <input type="number" v-model="diode.x"/>
+    y: <input type="number" v-model="diode.y"/>
+    </div>
+    <button @click="strip.Positions.push({})">+</button>
   </div>
     </div>
 </template>

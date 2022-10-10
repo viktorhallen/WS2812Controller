@@ -1,10 +1,10 @@
-var common = require("./common.js");
+import common from "./common";
 
 function twinkle() {
 	var name = "twinkle.js";
 	var WasTwinkling = false;
 	var TwinkleSpeed = 250;
-	var LastStates = [];
+	var LastStates: number[] = [];
 
 	// Good, white colors to use to simulate starry nights :)
 	var TwinkleColors = [
@@ -97,4 +97,4 @@ function twinkle() {
 	};
 }
 
-module.exports = new twinkle();
+export default new twinkle();

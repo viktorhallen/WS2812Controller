@@ -1,8 +1,8 @@
 /*******************************
 	christmas animations
 *******************************/
-var common = require("./common.js");
-var name = "fade.js";
+import common from "./common";
+var name = "manual.js";
 
 /*******************************
 	fader methods
@@ -15,17 +15,27 @@ var Brightness = 255;
 var FadingDown = true;
 var FadeSpeed = 10;
 
-function fader() {
-	this.GoFade2 = function (args, strip) {
-		console.log("Starting Fade 2 Colors");
-		Fade2Color1 = parseInt("0x" + args.Color1);
-		Fade2Color2 = parseInt("0x" + args.Color2);
+function manual() {
+	this.GoManual = function (args, strip) {
+		console.log("Starting Manual");
+		console.log(args);
+//		Fade2Color1 = parseInt("0x" + args.Color1);
+//		Fade2Color2 = parseInt("0x" + args.Color2);
 
-		CurrentFadeColor = Fade2Color1;
-		strip.SetStripColor(CurrentFadeColor);
+//		CurrentFadeColor = Fade2Color1;
+//		strip.SetStripColor(CurrentFadeColor);
 
-		strip.Mode = "GoFade2";
-		this.FadeTick(strip);
+		strip.SetBrightness(255);
+		for(let i = 0; i < strip.Lights.length; i++) {
+			if(args[i] != undefined){
+	     			strip.Lights[i] = common.rgb2Int(args[i].r, args[i].g, args[i].b);
+			}
+		}
+		
+		strip.Mode = "GoManual";
+		strip.Render();			
+
+//		this.FadeTick(strip);
 	};
 
 	this.FadeTick = function (strip) {
@@ -71,17 +81,6 @@ function fader() {
 			strip.SetBrightness(255);
 		}
 	};
-
-	this.FadeSpeed = function (args, strip) {
-		var val = parseInt(args.speed);
-		var mappedVal = common.map_range(val, 0, 100, 10, 1);
-		if (typeof mappedVal === "number") {
-			FadeSpeed = mappedVal;
-			console.log("Updated fade speed: " + FadeSpeed);
-		} else {
-			FadeSpeed = 1000 / 30;
-		}
-	};
 }
 
-module.exports = new fader();
+export default new manual();

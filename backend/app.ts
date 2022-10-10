@@ -17,7 +17,7 @@ var path = require("path");
 var os = require('os');
 var fs = require("fs");
 
-app.use(express.static(__dirname + "/../public"));
+app.use(express.static(__dirname + "/../../../public"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -25,16 +25,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 var HTTP_PORT = 8080;
 
 /* Global reference to the LED strip */
-var strip = require("./strip.js");
+import strip from "./strip";
 
 /*  Animation Libraries */
-var xmas = require("../lib/animations/xmas.js");
-var fade = require("../lib/animations/fade.js");
-var rainbow = require("../lib/animations/rainbow.js");
-var control = require("../lib/animations/control.js");
-var dance = require("../lib/animations/dance.js");
-var twinkle = require("../lib/animations/twinkle.js");
-var manual = require("../lib/animations/manual.js");
+import animations from "../lib/animations";
 
 // Find the first local, ipv4 address
 // This is a 'best guess' that the web server can be accessed
@@ -105,7 +99,7 @@ app.options("/AnimationRequest", function (req, res) {
  */
 app.get("/", function (req, res) {
 	res.header("Access-Control-Allow-Origin", "*");
-	res.sendFile(path.join(__dirname + "/../public/app.html"));
+	res.sendFile(path.join(__dirname + "/../../../public/app.html"));
 });
 
 /*****************
@@ -133,33 +127,8 @@ app.get("/admin/poweroff", function (req, res) {
  * Find the correct reference to a specific library name;
  * @param {string} key The name of the library to find
  */
-function GetLibraryInstance(key) {
-	var lib = null;
-	switch (key) {
-		case "xmas":
-			lib = xmas;
-			break;
-		case "fade":
-			lib = fade;
-			break;
-		case "rainbow":
-			lib = rainbow;
-			break;
-		case "control":
-			lib = control;
-			break;
-		case "dance":
-			lib = dance;
-			break;
-		case "twinkle":
-			lib = twinkle;
-			break;
-		case "manual":
-			lib = manual;
-			break;
-	}
-
-	return lib;
+function GetLibraryInstance<T extends keyof typeof animations>(key: T): typeof animations[T] {
+	return animations[key];
 }
 
 /*****************
@@ -175,6 +144,7 @@ var server = http.createServer(app).listen(HTTP_PORT, function () {
 
 	// Run the 'Rainbow' routing on startup
 	var rainbowInstance = GetLibraryInstance("rainbow");
+	console.log(rainbowInstance);
 	if (rainbowInstance) {
         	rainbowInstance.GoRainbow("", strip);
 	}
@@ -202,3 +172,4 @@ var serverHttps = https.createServer(options, app).listen(HTTP_PORT + 1, () =>
 }
 process.on("SIGTERM", cleanup);
 process.on("SIGINT", cleanup);
+

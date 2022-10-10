@@ -1,14 +1,14 @@
 /*******************************
 	animation control
 *******************************/
-var common = require("./common.js");
-var name = "control.js";
+import common from "./common";
 
 function control() {
+	let name = "control.js";
 	this.Stop = function (args, strip) {
 		strip.Stop();
 		console.log("Stopped strip");
 	};
 }
 
-module.exports = new control();
+export default new control();

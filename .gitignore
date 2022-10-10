@@ -1,6 +1,8 @@
 certificate.key
 certificate.crt
 .DS_Store
+public/dist
+._*
 
 
 # Logs

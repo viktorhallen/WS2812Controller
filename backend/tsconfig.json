@@ -1,0 +1,23 @@
+{
+  "include": ["./**/*", "../lib/**/*"],
+  "exclude": ["dist"],
+  "compilerOptions": {
+    "types": ["node"],
+    "module": "CommonJS",
+    "target": "ES2015",
+    "baseUrl": ".",
+    "paths": {
+      "@frontend/*": ["../frontend/*"],
+      "@lib/*": ["../lib/*"],
+    },
+    "allowJs": true,
+    "outDir": "dist",
+
+    "noImplicitOverride": true,
+    /* these should preferably be worked away */
+    "noImplicitAny": false,
+    "noImplicitThis": false,
+    "isolatedModules": false
+  },
+
+}

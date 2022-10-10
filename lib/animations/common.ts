@@ -3,6 +3,10 @@ var XmasGreen = 0x00ff00;
 var XmasBlue = 0x0000ff;
 var XmasWhite = 0xffffff;
 
+export abstract class Animation {
+	abstract NAME: string;
+}
+
 function common() {
 	this.RandomXmasColor = function () {
 		var xmasLight = this.getRandomInt(1, 4);
@@ -68,4 +72,4 @@ function common() {
 	};
 }
 
-module.exports = new common();
+export default new common();

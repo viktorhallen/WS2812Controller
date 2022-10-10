@@ -1,15 +1,17 @@
 {
   "extends": "@vue/tsconfig/tsconfig.web.json",
-  "include": ["env.d.ts", "src/**/*", "src/**/*.vue", "../lib/*"],
+  "include": ["env.d.ts", "frontend/**/*", "frontend/**/*.vue", "lib/**/*"],
   "compilerOptions": {
     "module": "ES2022",
-    "target": "es6",
+    "target": "ES2022",
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"],
-      "@lib/*": ["../lib/*", "./lib/*"],
+      "@frontend/*": ["./frontend/*"],
+      "@lib/*": ["./lib/*"],
     },
     "allowJs": true,
+    "noImplicitAny": false,
+    "noImplicitThis": false,
   },
 
   "references": [
