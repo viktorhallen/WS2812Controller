@@ -60,9 +60,9 @@ function common() {
 	this.rgbToHex = function (r, g, b) {
 		return parseInt(
 			"0x" +
-				this.componentToHex(r) +
-				this.componentToHex(g) +
-				this.componentToHex(b)
+			this.componentToHex(r) +
+			this.componentToHex(g) +
+			this.componentToHex(b)
 		);
 	};
 

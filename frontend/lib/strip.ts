@@ -1,9 +1,14 @@
 import { StripBase } from "../../lib/strip";
 
 export default class Strip extends StripBase {
-    NUM_LEDS = 10;
+    NUM_LEDS: number;
     Mode: string = "";
     Lights: number[] = [];
+
+    constructor(numLeds: number = 10) {
+        super();
+        this.NUM_LEDS = numLeds;
+    }
 
     Clear() {}
 

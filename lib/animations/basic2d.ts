@@ -18,11 +18,16 @@ export class Basic2D extends Animation {
 
 	RainbowTick(args, strip: StripBase): void {
 		var _this = this;
+		const start = performance.now()
 		for (var i = 0; i < strip.NUM_LEDS; i++) {
-			const {x,y} = strip.GetPosition2D(i);
-			strip.Lights[i] = common.colorWheel((this.RainbowOffset + x*100) % 256);
-		}
+			const { x, y } = strip.GetPosition2D(i);
+			strip.Lights[i] = common.colorWheel((this.RainbowOffset + Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2)) * 180) % 256);
 
+		}
+		const end = performance.now();
+		if (false) {
+			console.log("time:", end - start);
+		}
 		this.RainbowOffset = (this.RainbowOffset + 1) % 256;
 
 		strip.Render();

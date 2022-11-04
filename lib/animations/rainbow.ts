@@ -17,8 +17,14 @@ export class Rainbow extends Animation {
 
 	RainbowTick(args, strip): void {
 		var _this = this;
+		const start = performance.now();
 		for (var i = 0; i < strip.NUM_LEDS; i++) {
 			strip.Lights[i] = common.colorWheel((this.RainbowOffset + i) % 256);
+		}
+
+		const end = performance.now();
+		if (false) {
+			console.log("time:", end - start);
 		}
 
 		this.RainbowOffset = (this.RainbowOffset + 1) % 256;
