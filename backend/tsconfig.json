@@ -17,7 +17,8 @@
     /* these should preferably be worked away */
     "noImplicitAny": false,
     "noImplicitThis": false,
-    "isolatedModules": false
+    "isolatedModules": false,
+    "skipLibCheck": true
   },
 
 }

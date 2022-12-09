@@ -31,7 +31,8 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "tsc -p backend/tsconfig.json && sudo node backend/dist/backend/app.js",
+    "build": "tsc -p backend/tsconfig.json",
+    "start": "sudo node backend/dist/backend/app.js",
     "frontend-dev": "vite --host",
     "frontend-build": "run-p frontend-type-check frontend-build-only",
     "frontend-preview": "vite preview --port 4173",
